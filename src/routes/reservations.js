@@ -11,7 +11,7 @@ const router = Router();
 
 router.get("/", getAllReservations);
 router.get(":id", getReservation);
-router.post("", addReservation);
+router.post("/", addReservation);
 router.put("/", updateReservation);
 router.delete("/", deleteReservation);
 

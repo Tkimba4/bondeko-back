@@ -13,6 +13,8 @@
  */
 export async function addReservation(req, res){
     try {
+        console.log(req.body);
+        // console.log();
         
         res.status(201).send()
     } catch (error) {

@@ -8,7 +8,10 @@ export async function getService(req, res) {
 
 export async function getAllServices(req, res) {
   try {
-    res.send();
+    const data = ["Gynecologie", "Chirurgie", "Pédiatrie", "Général"];
+
+
+    res.json(data);
   } catch (error) {
     res.status(500).send();
   }

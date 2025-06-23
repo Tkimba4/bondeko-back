@@ -1,20 +1,22 @@
 import express from "express";
 import morgan from "morgan";
-
+import cors from "cors";
 //routes
-import db from "./config/db.js";
+// import db from "./config/db.js";
 import reservationRoute from "./routes/reservations.js";
+import serviceRouter from "./routes/services.js";
 
 const app = express();
 
-app.use(morgan('dev'))
-app.use(express.json());
-
-
-app.get("/", (req, res) => {
+app
+  .use(express.json())
+  // .use(express.urlencoded({ extended: true }))
+  .use(cors())
+  .use(morgan("dev"))
+  //routes
+  .get("/", (req, res) => {
     res.send("Welcom to Bondeko!");
-});
-
-app.use("/api/reservations", reservationRoute);
-
+  })
+  .use("/bondeko/reservations", reservationRoute)
+  .use("/bondeko/services", serviceRouter);
 export default app;

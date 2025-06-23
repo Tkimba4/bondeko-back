@@ -5,7 +5,7 @@ import {
   getAllServices,
   getService,
   updateService,
-} from "../controllers/servicesController";
+} from "../controllers/servicesController.js";
 
 const router = Router();
 
@@ -14,3 +14,5 @@ router.get(":id", getService);
 router.post("", addService);
 router.put("", updateService);
 router.delete("", deleteService);
+
+export default router;

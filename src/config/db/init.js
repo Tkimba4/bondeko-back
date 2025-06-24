@@ -1,5 +1,5 @@
 import db from "./sqlite.js";
-import query from "./shema.js";
+import query from "../../models/shema.js";
 
 db.serialize(() => {
   db.exec(query, (err) => {

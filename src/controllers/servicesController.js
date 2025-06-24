@@ -1,3 +1,5 @@
+import { selectAll } from "../models/servicesModel.js";
+
 export async function getService(req, res) {
   try {
     res.send();
@@ -7,14 +9,12 @@ export async function getService(req, res) {
 }
 
 export async function getAllServices(req, res) {
-  try {
-    const data = ["Gynecologie", "Chirurgie", "Pédiatrie", "Général"];
-
-
-    res.json(data);
-  } catch (error) {
-    res.status(500).send();
-  }
+  selectAll((err, rows) => {
+    if (err) {
+      return res.status(500).send("Unable to fetch services");
+    }
+    return res.json(rows);
+  });
 }
 export async function addService(req, res) {
   try {

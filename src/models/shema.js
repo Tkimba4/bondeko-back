@@ -27,9 +27,9 @@ CREATE TABLE reservations (
     email TEXT NOT NULL,
     tel TEXT,
     day_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    day_time TEXT DEFAULT 'beforenoon' CHECK(day_time IN ('beforenoon', 'afternoon')),
+    day_time INT DEFAULT 0 ,
     service_id INTEGER NOT NULL,
-    reson TEXT,
+    reason TEXT,
     state TEXT CHECK(state IN ('waiting', 'confirmed', 'canceled')),
     medecin_id INTEGER DEFAULT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -38,7 +38,17 @@ CREATE TABLE reservations (
     FOREIGN KEY (medecin_id) REFERENCES users(id)
 );
 
-
+insert into services(name, description) values
+('General Medicine', 'General medical consultations and check-ups'),
+('Pediatrics', 'Medical care for children and adolescents'),
+('Gynecology', 'Women’s health services including reproductive health'),
+('Dermatology', 'Skin-related medical services'),
+('Cardiology', 'Heart and cardiovascular health services'),
+('Orthopedics', 'Bone and joint health services'),
+('Ophthalmology', 'Eye care and vision services'),
+('ENT', 'Ear, Nose, and Throat medical services'),
+('Psychiatry', 'Mental health services and counseling'),
+('Dentistry', 'Dental care and oral health services');
 `;
 
 export default shema;

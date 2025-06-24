@@ -1,12 +1,41 @@
-import db from "../config/db";
+import db from "../config/db/sqlite.js";
 
 // Create
-export async function addReservation(data) {
-  const [result] = await db.execute(
-    "INSERT INTO reservations (firs_name, last_name, email, birthday, service_id, day_date, day_time, motif) VALUES (?, ?)",
-    data
+export async function insert(data, callback) {
+  const {
+    first_name,
+    last_name,
+    email,
+    birthday,
+    service,
+    day_date,
+    day_time,
+    reason,
+  } = data;
+  db.run(
+    `
+      INSERT INTO Reservations 
+      (first_name, last_name, email, birthday, service_id, day_date, day_time, reason)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `,
+    [
+      first_name,
+      last_name,
+      email,
+      birthday,
+      service,
+      day_date,
+      day_time,
+      reason,
+    ],
+    (err) => {
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      return callback(null, "Reservation added successfully");
+    }
   );
-  return result.insertId;
 }
 
 // Read all

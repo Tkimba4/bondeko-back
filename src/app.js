@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 //routes
-// import db from "./config/db.js";
+import db from "./config/db/sqlite.js";
 import reservationRoute from "./routes/reservations.js";
 import serviceRouter from "./routes/services.js";
 

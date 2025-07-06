@@ -1,4 +1,4 @@
-import db from "../config/db/sqlite.js";
+import db from "../../.inu/sqlite.js";
 
 // Create
 export async function createArticle(title, content) {

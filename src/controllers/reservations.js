@@ -1,68 +1,69 @@
-import { insert } from "../models/reservationsModel.js";
-/**
- * @typedef {import('express').Request} Request
- * @typedef {import('express').Response} Response
- */
+import { Router } from "express";
+import db from "../config/db/db.js";
 
-/**
- * @param {Request} req
- * @param {Response} res
- */
-export async function addReservation(req, res) {
-  insert(req.body, (err, msg) => {
-    if (err) {
-      res.status(500).send("Unable to add reservation");
+const router = Router();
+
+router.get("/", async (req, res) => {
+  try {
+    const reservations = db.prepare("SELECT * FROM Reservations").all();
+    res.json(reservations);
+  } catch (error) {
+    res.status(500).send("Server Erro");
+  }
+});
+router.get("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const reservation = db
+      .prepare("SELECT * FROM Reservations WHERE id= ?")
+      .run(id);
+    if (!reservation) {
+      return res.status(404).send("Reservation not fund");
     }
-    console.log("in...");
-    res.status(201).send();
-  });
-}
-/**
- * @param {Request} req
- * @param {Response} res
- */
-export async function updateReservation(req, res) {
-  try {
-    const { id, state } = req.body;
-    res.status(201).send();
+    return res.json(reservation);
   } catch (error) {
-    console.log(error);
-    res.status(500).send();
+    return res.status(500).send();
   }
-}
-/**
- * @param {Request} req
- * @param {Response} res
- */
-export async function deleteReservation(req, res) {
+});
+router.post("/", async (req, res) => {
   try {
-    res.status(201).send();
+    const {
+      first_name,
+      last_name,
+      email,
+      phone,
+      birhtday,
+      day_data,
+      day_time,
+      service,
+      reason,
+    } = req.body;
+    // console.log(req.body);
+    db.prepare(
+      `
+      INSERT INTO Reservations (
+      first_name, last_name, email, phone, birthday, day_date, day_time, service, reason )
+      VALUES ? ? ? ? ? ? ? ? ?`
+    ).run(
+      first_name,
+      last_name,
+      email,
+      phone,
+      birhtday,
+      day_data,
+      day_time,
+      service,
+      reason
+    );
+    return res.status(201).send();
   } catch (error) {
-    console.log(error);
-    res.status(500).send();
+    
+    return res.status(500).send();
   }
-}
-/**
- * @param {Request} req
- * @param {Response} res
- */
-export async function getAllReservations(req, res) {
-  try {
-    res.status(201).send();
-  } catch (error) {
-    console.log(error);
-    res.status(500).send();
-  }
-}
-/**
- * @param {Request} req
- * @param {Response} res
- */
-export async function getReservation(req, res) {
-  try {
-    res.status(201).send();
-  } catch (error) {
-    console.log(error);
-    res.status(500).send();
-  }
-}
+});
+router.patch("/:id", async (req, res) => {});
+router.put("/:id", async (req, res) => {});
+
+router.delete("/:id", async (req, res) => {});
+
+export default router;

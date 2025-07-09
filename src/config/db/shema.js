@@ -33,7 +33,7 @@ CREATE TABLE Appointments (
     state TEXT CHECK(state IN ('WAITING', 'CONFIRMED', 'CANCELED')) DEFAULT 'WAITING',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     update_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (service_id) REFERENCES services(id),
+    FOREIGN KEY (service_id) REFERENCES services(id)
 );
 
 INSERT INTO services(name, description) VALUES

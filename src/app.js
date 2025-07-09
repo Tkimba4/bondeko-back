@@ -2,10 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 //routes
-// import db from "./config/db/index.js";
-import reservations from "./controllers/reservations.js";
+import appointments from "./controllers/appointments.js";
 import services from "./controllers/services.js";
-// import serviceRouter from "./routes/services.js";
 
 const app = express();
 
@@ -18,6 +16,6 @@ app
   .get("/", (req, res) => {
     res.send("Welcom to Bondeko!");
   })
-  .use("/bondeko/reservations/", reservations)
+  .use("/bondeko/appointments/", appointments)
   .use("/bondeko/services/", services);
 export default app;

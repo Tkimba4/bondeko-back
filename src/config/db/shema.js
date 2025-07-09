@@ -18,27 +18,25 @@ CREATE TABLE users (
     FOREIGN KEY (service_id) REFERENCES services(id)
 );
 
-CREATE TABLE reservations (
+CREATE TABLE Appointments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     sex CHAR(1),
     birthday DATE NOT NULL,
     email TEXT NOT NULL,
-    tel TEXT,
-    day_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    day_time INT DEFAULT 0 ,
+    phone TEXT,
+    date DATE NOT NULL DEFAULT CURRENT_DATE,
+    time INT DEFAULT 0 ,
     service_id INTEGER NOT NULL,
-    reason TEXT,
-    state TEXT CHECK(state IN ('waiting', 'confirmed', 'canceled')),
-    medecin_id INTEGER DEFAULT NULL,
+    motif TEXT,
+    state TEXT CHECK(state IN ('WAITING', 'CONFIRMED', 'CANCELED')) DEFAULT 'WAITING',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     update_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (service_id) REFERENCES services(id),
-    FOREIGN KEY (medecin_id) REFERENCES users(id)
 );
 
-insert into services(name, description) values
+INSERT INTO services(name, description) VALUES
 ('General Medicine', 'General medical consultations and check-ups'),
 ('Pediatrics', 'Medical care for children and adolescents'),
 ('Gynecology', 'Women’s health services including reproductive health'),

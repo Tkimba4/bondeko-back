@@ -25,6 +25,7 @@ router.get("/", async (req, res) => {
       FROM Appointments as a 
       INNER JOIN Services as s 
       ON a.service_id = s.id
+      ORDER BY created_at DESC
       `
       )
       .all();
